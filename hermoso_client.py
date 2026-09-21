@@ -40,7 +40,7 @@ class HermosoClient:
         if not key:
             raise HermosoError(
                 "No Hermoso API key is configured. Create one in the Hermoso app under "
-                "Settings, Agents & API, then add it to this plugin's authorization.",
+                "MCP & CLI, then add it to this plugin's authorization.",
                 status=401,
                 code="missing_api_key",
             )
@@ -108,7 +108,7 @@ class HermosoClient:
             if resp.status_code == 401:
                 message = (
                     "Hermoso rejected the API key. Create a key in the Hermoso app under "
-                    "Settings, Agents & API and update this plugin's authorization."
+                    "MCP & CLI and update this plugin's authorization."
                 )
             request_id = str((body or {}).get("request_id") or "") if isinstance(body, dict) else ""
             raise HermosoError(message, status=resp.status_code, code=code, request_id=request_id)

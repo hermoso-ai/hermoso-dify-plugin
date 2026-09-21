@@ -30,7 +30,7 @@ Credits are spent only when an AI model runs or ad research is pulled. Schedulin
 ## Setup
 
 1. Create a Hermoso account at https://app.hermoso.ai.
-2. In the Hermoso app open **Settings, Agents & API** and create an API key. It starts with `hmk_`.
+2. In the Hermoso app open **MCP & CLI** and create an API key. It starts with `hmk_`.
 3. In Dify, install this plugin, open **Tools**, find **Hermoso**, choose **Authorize**, and paste the key.
 4. Dify validates the key with one free read (`GET /v1/credits`). Nothing is generated or published during validation.
 
