@@ -152,7 +152,7 @@ def test_provider_validation_rejects_a_bad_key_without_echoing_it(api, registrat
     with pytest.raises(ToolProviderCredentialValidationError) as err:
         provider.validate_credentials({"hermoso_api_key": "hmk_super_secret_value_123456"})
     assert "hmk_super_secret_value_123456" not in str(err.value)
-    assert "Settings, Agents & API" in str(err.value)
+    assert "MCP & CLI" in str(err.value)
     with pytest.raises(ToolProviderCredentialValidationError):
         provider.validate_credentials({"hermoso_api_key": ""})
 
