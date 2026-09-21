@@ -1,0 +1,28 @@
+identity:
+  name: get_job
+  author: hermoso-ai
+  label:
+    en_US: Get Job
+    zh_Hans: 查询任务
+description:
+  human:
+    en_US: Check a render job started by Generate Video. Returns its status and the media URL when done. Free.
+    zh_Hans: 查询由“生成视频”启动的渲染任务，返回状态，完成后返回媒体链接。免费。
+  llm: 'Polls a render job by id. Returns status (queued, running, done, error or not_found), progress, and on done the media
+    URL. Each call can wait up to about 45 seconds, and a render takes 1 to 3 minutes, so several calls are normal. Keep calling
+    until done or error. not_found is final: stop polling and do not start the render again. Free.'
+parameters:
+- name: job_id
+  type: string
+  required: true
+  label:
+    en_US: Job id
+    zh_Hans: 任务 ID
+  human_description:
+    en_US: The job id returned by Generate Video, for example job_abc123.
+    zh_Hans: “生成视频”返回的任务 ID，例如 job_abc123。
+  llm_description: The job id returned by generate_video, for example job_abc123.
+  form: llm
+extra:
+  python:
+    source: tools/get_job.py

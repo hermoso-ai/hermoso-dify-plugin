@@ -1,0 +1,69 @@
+identity:
+  name: list_scheduled_posts
+  author: hermoso-ai
+  label:
+    en_US: List Scheduled Posts
+    zh_Hans: 已排期帖子列表
+description:
+  human:
+    en_US: List scheduled and already published posts with their per-channel results. Free.
+    zh_Hans: 列出已排期和已发布的帖子及各渠道结果。免费。
+  llm: 'Lists posts for this workspace, newest first: id, status, scheduled time, channels, caption and per-channel results.
+    Use it to confirm a schedule_post call or to find a post id to cancel. Free.'
+parameters:
+- name: status
+  type: select
+  required: false
+  label:
+    en_US: Status
+    zh_Hans: 状态
+  human_description:
+    en_US: Filter by status.
+    zh_Hans: 按状态筛选。
+  llm_description: Optional status filter.
+  form: llm
+  options:
+  - value: scheduled
+    label:
+      en_US: Scheduled
+      zh_Hans: 已排期
+  - value: published
+    label:
+      en_US: Published
+      zh_Hans: 已发布
+  - value: partially_published
+    label:
+      en_US: Partially published
+      zh_Hans: 部分发布
+  - value: failed
+    label:
+      en_US: Failed
+      zh_Hans: 失败
+- name: channel
+  type: string
+  required: false
+  label:
+    en_US: Channel
+    zh_Hans: 渠道
+  human_description:
+    en_US: Only posts that include this channel id.
+    zh_Hans: 仅显示包含该渠道的帖子。
+  llm_description: Optional channel id filter, for example instagram.
+  form: llm
+- name: limit
+  type: number
+  required: false
+  label:
+    en_US: Max posts
+    zh_Hans: 最多帖子数
+  human_description:
+    en_US: How many to return (1 to 100).
+    zh_Hans: 返回数量（1 到 100）。
+  llm_description: Maximum number of posts, 1 to 100. Default 20.
+  form: llm
+  default: 20
+  min: 1
+  max: 100
+extra:
+  python:
+    source: tools/list_scheduled_posts.py

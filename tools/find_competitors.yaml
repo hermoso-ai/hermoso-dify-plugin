@@ -1,0 +1,50 @@
+identity:
+  name: find_competitors
+  author: hermoso-ai
+  label:
+    en_US: Find Competitors
+    zh_Hans: 查找竞争对手
+description:
+  human:
+    en_US: Discover competitor and similar brands from a company's website domain. Spends a small amount of credits.
+    zh_Hans: 根据公司网站域名发现竞争品牌和相似品牌。消耗少量额度。
+  llm: Discovers a brand's competitors, similar brands and adjacent brands from its website domain. Returns a list of {name,
+    domain, kind, reason}. It runs an AI model, so it spends a small amount of Hermoso credits. Use the returned name or domain
+    with pull_competitor_ads to see the ads a brand is running.
+parameters:
+- name: domain
+  type: string
+  required: true
+  label:
+    en_US: Brand domain
+    zh_Hans: 品牌域名
+  human_description:
+    en_US: The company website domain, for example allbirds.com.
+    zh_Hans: 公司网站域名，例如 allbirds.com。
+  llm_description: The brand's website domain without a path, for example allbirds.com.
+  form: llm
+- name: mode
+  type: select
+  required: false
+  label:
+    en_US: Mode
+    zh_Hans: 模式
+  human_description:
+    en_US: Competitors (excludes the searched brand) or the best relevant advertisers to learn from.
+    zh_Hans: 竞争对手（不含所查品牌），或最值得借鉴的相关广告主。
+  llm_description: 'competitors (default): head-to-head rivals and similar brands, excluding the searched brand. inspiration:
+    the brands with the most copyable ads for this market, including the searched brand.'
+  form: llm
+  default: competitors
+  options:
+  - value: competitors
+    label:
+      en_US: Competitors
+      zh_Hans: 竞争对手
+  - value: inspiration
+    label:
+      en_US: Best relevant ads
+      zh_Hans: 最佳相关广告
+extra:
+  python:
+    source: tools/find_competitors.py

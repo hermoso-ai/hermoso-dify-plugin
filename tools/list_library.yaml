@@ -1,0 +1,55 @@
+identity:
+  name: list_library
+  author: hermoso-ai
+  label:
+    en_US: List Library
+    zh_Hans: 素材库列表
+description:
+  human:
+    en_US: List the images and videos already generated in this Hermoso account, newest first. Free.
+    zh_Hans: 列出该 Hermoso 账户中已生成的图片和视频，按时间倒序。免费。
+  llm: Lists the images and videos in the account's Hermoso Library, newest first, with each asset's URL, kind, model and
+    age. The URLs can be passed to schedule_post as media. Free and read-only.
+parameters:
+- name: kind
+  type: select
+  required: false
+  label:
+    en_US: Kind
+    zh_Hans: 类型
+  human_description:
+    en_US: Filter by asset kind.
+    zh_Hans: 按素材类型筛选。
+  llm_description: image, video or all (default).
+  form: llm
+  default: all
+  options:
+  - value: all
+    label:
+      en_US: All
+      zh_Hans: 全部
+  - value: image
+    label:
+      en_US: Images
+      zh_Hans: 图片
+  - value: video
+    label:
+      en_US: Videos
+      zh_Hans: 视频
+- name: limit
+  type: number
+  required: false
+  label:
+    en_US: Max assets
+    zh_Hans: 最多素材数
+  human_description:
+    en_US: How many to return (1 to 60).
+    zh_Hans: 返回数量（1 到 60）。
+  llm_description: Maximum number of assets, 1 to 60. Default 20.
+  form: llm
+  default: 20
+  min: 1
+  max: 60
+extra:
+  python:
+    source: tools/list_library.py

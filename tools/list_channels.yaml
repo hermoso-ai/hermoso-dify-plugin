@@ -1,0 +1,17 @@
+identity:
+  name: list_channels
+  author: hermoso-ai
+  label:
+    en_US: List Channels
+    zh_Hans: 渠道列表
+description:
+  human:
+    en_US: List the social channels this Hermoso account can publish to and which are connected. Free.
+    zh_Hans: 列出该 Hermoso 账户可发布的社交渠道及其连接状态。免费。
+  llm: Lists every publishing channel with its id, whether it is connected, its caption length limit, the visibilities it
+    supports and its carousel limits. Call it before schedule_post to pick valid channel ids. A channel that is not connected
+    must be linked by the user in the Hermoso app under Settings, Connectors; that is a browser sign-in and cannot be done
+    from here. Free.
+extra:
+  python:
+    source: tools/list_channels.py

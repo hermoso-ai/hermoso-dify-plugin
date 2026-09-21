@@ -1,0 +1,39 @@
+identity:
+  name: research_ads
+  author: hermoso-ai
+  label:
+    en_US: Research Ads
+    zh_Hans: 广告调研
+description:
+  human:
+    en_US: Open-ended ad research across ad libraries with a written summary. Takes 30 to 60 seconds. Spends credits.
+    zh_Hans: 跨广告库的开放式广告调研，并给出文字总结。需要 30 到 60 秒。消耗额度。
+  llm: 'Open-ended ad research that needs judgment across platforms: comparisons, which angle is working in a market, who
+    else is doing something. It runs several library lookups and writes a synthesis, so it typically takes 30 to 60 seconds.
+    Spends Hermoso credits. For one named brand''s ads use pull_competitor_ads instead, which is faster.'
+parameters:
+- name: query
+  type: string
+  required: true
+  label:
+    en_US: Research question
+    zh_Hans: 调研问题
+  human_description:
+    en_US: What to research, in plain words.
+    zh_Hans: 用自然语言描述要调研的内容。
+  llm_description: 'What to research, for example: the longest-running protein bar ads on Meta and the hooks they repeat.'
+  form: llm
+- name: brand
+  type: string
+  required: false
+  label:
+    en_US: Brand
+    zh_Hans: 品牌
+  human_description:
+    en_US: Optional brand name to tailor the research to. Defaults to the account's saved brand.
+    zh_Hans: 可选：用于定制调研的品牌名称，默认使用账户中保存的品牌。
+  llm_description: Optional brand name to tailor the research to. Omit to use the workspace's saved brand.
+  form: llm
+extra:
+  python:
+    source: tools/research_ads.py

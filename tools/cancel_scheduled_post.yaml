@@ -1,0 +1,27 @@
+identity:
+  name: cancel_scheduled_post
+  author: hermoso-ai
+  label:
+    en_US: Cancel Scheduled Post
+    zh_Hans: 取消已排期帖子
+description:
+  human:
+    en_US: Cancel a post that is still scheduled. It cannot remove a post that was already published. Free.
+    zh_Hans: 取消仍在排期中的帖子。无法删除已经发布的帖子。免费。
+  llm: Cancels ONE scheduled post by id so it will not be published. Only works while the post is still scheduled; an already
+    published post is refused. Confirm with the user first. Free.
+parameters:
+- name: post_id
+  type: string
+  required: true
+  label:
+    en_US: Post id
+    zh_Hans: 帖子 ID
+  human_description:
+    en_US: The id from Schedule Post or List Scheduled Posts.
+    zh_Hans: 来自“定时发布”或“已排期帖子列表”的 ID。
+  llm_description: The post id returned by schedule_post or list_scheduled_posts.
+  form: llm
+extra:
+  python:
+    source: tools/cancel_scheduled_post.py

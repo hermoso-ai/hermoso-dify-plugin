@@ -1,0 +1,140 @@
+identity:
+  name: schedule_post
+  author: hermoso-ai
+  label:
+    en_US: Schedule Post
+    zh_Hans: 定时发布
+description:
+  human:
+    en_US: Schedule a social post to one or more connected channels at a future time or the next queue slot. Free, except
+      posts to X, which spend a few credits. This writes to your real social accounts.
+    zh_Hans: 将社交帖子定时发布到一个或多个已连接渠道，可指定未来时间或使用下一个队列时段。免费（发布到 X 的帖子除外，会消耗少量额度）。此操作会写入你的真实社交账号。
+  llm: 'Schedules ONE post to one or more connected channels. It will be published to the user''s real social accounts at
+    that time, so confirm the caption, media, channels and time with the user first. Give exactly one of scheduled_at or use_queue.
+    This tool never publishes immediately. Channel rules (caption limits, media requirements) are checked now and refused
+    by name rather than failing later. Returns the created post with its id. Spends no credits, with one exception: a post
+    to X spends a few credits when it goes out.'
+parameters:
+- name: channels
+  type: string
+  required: true
+  label:
+    en_US: Channels
+    zh_Hans: 渠道
+  human_description:
+    en_US: Channel ids separated by commas, for example instagram, tiktok. See List Channels.
+    zh_Hans: 渠道 ID，用逗号分隔，例如 instagram, tiktok。参见“渠道列表”。
+  llm_description: 'Comma-separated channel ids from list_channels, for example: instagram, tiktok, linkedin.'
+  form: llm
+- name: caption
+  type: string
+  required: false
+  label:
+    en_US: Caption
+    zh_Hans: 文案
+  human_description:
+    en_US: The post text.
+    zh_Hans: 帖子正文。
+  llm_description: The post text used on every channel.
+  form: llm
+- name: media_urls
+  type: string
+  required: false
+  label:
+    en_US: Media URLs
+    zh_Hans: 媒体链接
+  human_description:
+    en_US: Image or video URLs separated by commas. Two or more images make a carousel.
+    zh_Hans: 图片或视频链接，用逗号分隔。两张及以上图片将作为轮播。
+  llm_description: 'Comma-separated media URLs in order: a Hermoso URL from generate_image, generate_video, get_job or list_library,
+    or a public https URL. One item is a single post; two or more images are a carousel.'
+  form: llm
+- name: scheduled_at
+  type: string
+  required: false
+  label:
+    en_US: Scheduled time
+    zh_Hans: 发布时间
+  human_description:
+    en_US: ISO 8601 time in the future, for example 2030-01-15T09:00:00Z.
+    zh_Hans: 未来的 ISO 8601 时间，例如 2030-01-15T09:00:00Z。
+  llm_description: When to publish, ISO 8601 with a timezone offset or Z, at least one minute in the future. Give this OR
+    use_queue, not both.
+  form: llm
+- name: use_queue
+  type: boolean
+  required: false
+  label:
+    en_US: Use posting queue
+    zh_Hans: 使用发布队列
+  human_description:
+    en_US: Take the next free slot in the brand's posting schedule instead of naming a time.
+    zh_Hans: 使用品牌发布日程中的下一个空闲时段，而不是指定时间。
+  llm_description: true takes the next free slot of the brand's saved posting schedule. Give this OR scheduled_at.
+  form: llm
+  default: false
+- name: timezone
+  type: string
+  required: false
+  label:
+    en_US: Timezone
+    zh_Hans: 时区
+  human_description:
+    en_US: IANA timezone for the queue, for example America/New_York.
+    zh_Hans: 队列使用的 IANA 时区，例如 America/New_York。
+  llm_description: IANA timezone for use_queue, for example America/New_York. Defaults to the brand's saved zone.
+  form: llm
+- name: title
+  type: string
+  required: false
+  label:
+    en_US: Title
+    zh_Hans: 标题
+  human_description:
+    en_US: Headline for YouTube and Pinterest.
+    zh_Hans: YouTube 和 Pinterest 使用的标题。
+  llm_description: Headline that YouTube and Pinterest require. Derived from the caption when omitted.
+  form: llm
+- name: link
+  type: string
+  required: false
+  label:
+    en_US: Link
+    zh_Hans: 链接
+  human_description:
+    en_US: Optional link to attach.
+    zh_Hans: 可选：附加的链接。
+  llm_description: Optional destination link to attach to the post.
+  form: llm
+- name: visibility
+  type: select
+  required: false
+  label:
+    en_US: Visibility
+    zh_Hans: 可见性
+  human_description:
+    en_US: Public by default. Not every channel supports every option.
+    zh_Hans: 默认公开。并非所有渠道都支持所有选项。
+  llm_description: public (default), unlisted, private or draft. A channel that cannot honour the choice refuses it.
+  form: form
+  default: public
+  options:
+  - value: public
+    label:
+      en_US: Public
+      zh_Hans: 公开
+  - value: unlisted
+    label:
+      en_US: Unlisted
+      zh_Hans: 不公开列出
+  - value: private
+    label:
+      en_US: Private
+      zh_Hans: 私密
+  - value: draft
+    label:
+      en_US: Draft
+      zh_Hans: 草稿
+extra:
+  python:
+    source: tools/schedule_post.py

@@ -1,0 +1,100 @@
+identity:
+  name: generate_image
+  author: hermoso-ai
+  label:
+    en_US: Generate Image
+    zh_Hans: 生成图片
+description:
+  human:
+    en_US: Generate an ad image from a prompt, on-brand by default, and return its URL. Spends credits.
+    zh_Hans: 根据提示词生成广告图片（默认符合品牌风格），并返回图片链接。消耗额度。
+  llm: Generates one finished image from a prompt and returns its hosted URL. The call waits for the image, usually under
+    a minute. By default it uses the account's saved brand references so the result is on-brand; set use_brand to false for
+    a plain prompt-only generation. reference_images composites real product or logo images into the scene. Spends Hermoso
+    credits.
+parameters:
+- name: prompt
+  type: string
+  required: true
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  human_description:
+    en_US: 'Describe the image: subject, composition, lighting and any text on the image.'
+    zh_Hans: 描述图片：主体、构图、光线以及图片上的文字。
+  llm_description: 'The full image prompt: subject, composition, lighting and any on-image ad text.'
+  form: llm
+- name: aspect_ratio
+  type: select
+  required: false
+  label:
+    en_US: Aspect ratio
+    zh_Hans: 宽高比
+  human_description:
+    en_US: Shape of the image. Default 1:1.
+    zh_Hans: 图片比例，默认 1:1。
+  llm_description: Aspect ratio of the image. Default 1:1. Use 4:5 or 1:1 for feeds, 9:16 for stories and reels.
+  form: llm
+  default: '1:1'
+  options:
+  - value: '1:1'
+    label:
+      en_US: '1:1'
+      zh_Hans: '1:1'
+  - value: '4:5'
+    label:
+      en_US: '4:5'
+      zh_Hans: '4:5'
+  - value: '9:16'
+    label:
+      en_US: '9:16'
+      zh_Hans: '9:16'
+  - value: '16:9'
+    label:
+      en_US: '16:9'
+      zh_Hans: '16:9'
+  - value: '3:4'
+    label:
+      en_US: '3:4'
+      zh_Hans: '3:4'
+  - value: '4:3'
+    label:
+      en_US: '4:3'
+      zh_Hans: '4:3'
+- name: reference_images
+  type: string
+  required: false
+  label:
+    en_US: Reference image URLs
+    zh_Hans: 参考图片链接
+  human_description:
+    en_US: Optional public image URLs (product, logo), separated by commas.
+    zh_Hans: 可选：公开的图片链接（产品、标志），用逗号分隔。
+  llm_description: Optional comma-separated public https image URLs of a product or logo to composite into the image.
+  form: llm
+- name: use_brand
+  type: boolean
+  required: false
+  label:
+    en_US: Use saved brand
+    zh_Hans: 使用已保存品牌
+  human_description:
+    en_US: Use the account's saved brand references. Turn off for a plain generation.
+    zh_Hans: 使用账户中保存的品牌素材。关闭后为纯提示词生成。
+  llm_description: true (default) uses the saved brand's product and logo references. false runs the prompt alone.
+  form: form
+  default: true
+- name: model
+  type: string
+  required: false
+  label:
+    en_US: Model
+    zh_Hans: 模型
+  human_description:
+    en_US: Optional image model id. Leave empty for the recommended default.
+    zh_Hans: 可选：图片模型 ID，留空使用推荐默认值。
+  llm_description: Optional image model id. Omit it unless the user named a model; the default is a sound choice.
+  form: form
+extra:
+  python:
+    source: tools/generate_image.py

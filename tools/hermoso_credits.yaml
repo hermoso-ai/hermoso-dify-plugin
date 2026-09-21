@@ -1,0 +1,16 @@
+identity:
+  name: hermoso_credits
+  author: hermoso-ai
+  label:
+    en_US: Check Credits
+    zh_Hans: 查询额度
+description:
+  human:
+    en_US: Show the credit balance and plan of the connected Hermoso account. Free.
+    zh_Hans: 查看已连接 Hermoso 账户的额度余额和套餐。免费。
+  llm: Returns the Hermoso account's credit balance and plan. Free and read-only. Call it before a generation or an ad research
+    call when the user asks what they have left. Only AI model runs and ad research spend credits. Publishing and scheduling
+    do not, except posts to X.
+extra:
+  python:
+    source: tools/hermoso_credits.py

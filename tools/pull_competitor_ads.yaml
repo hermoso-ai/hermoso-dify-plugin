@@ -1,0 +1,91 @@
+identity:
+  name: pull_competitor_ads
+  author: hermoso-ai
+  label:
+    en_US: Pull Competitor Ads
+    zh_Hans: 拉取竞品广告
+description:
+  human:
+    en_US: Get the real ads one named brand is running on Facebook and Instagram, deduplicated and sorted. Spends credits.
+    zh_Hans: 获取某个品牌在 Facebook 和 Instagram 上正在投放的真实广告，已去重并排序。消耗额度。
+  llm: Returns the live ads ONE named brand is running in the Meta ad library (Facebook and Instagram), deduplicated and sorted,
+    with ad copy, call to action, media URLs and run dates. One call, a few seconds. Give company_name, domain, or both; both
+    gives the most reliable match. Spends Hermoso credits. If the brand name is ambiguous the result can be empty with a note
+    rather than a wrong brand.
+parameters:
+- name: company_name
+  type: string
+  required: false
+  label:
+    en_US: Company name
+    zh_Hans: 公司名称
+  human_description:
+    en_US: The advertiser name, for example Allbirds.
+    zh_Hans: 广告主名称，例如 Allbirds。
+  llm_description: The advertiser's brand name. Give this, domain, or both.
+  form: llm
+- name: domain
+  type: string
+  required: false
+  label:
+    en_US: Company domain
+    zh_Hans: 公司域名
+  human_description:
+    en_US: The advertiser website domain, for example allbirds.com.
+    zh_Hans: 广告主网站域名，例如 allbirds.com。
+  llm_description: The advertiser's website domain. It is used to resolve the right advertiser page.
+  form: llm
+- name: country
+  type: string
+  required: false
+  label:
+    en_US: Country
+    zh_Hans: 国家
+  human_description:
+    en_US: Two-letter country code. Default US.
+    zh_Hans: 两位国家代码，默认 US。
+  llm_description: Two-letter ISO country code of the ad library to read, for example US, GB, DE. Default US.
+  form: llm
+  default: US
+- name: limit
+  type: number
+  required: false
+  label:
+    en_US: Max ads
+    zh_Hans: 最多广告数
+  human_description:
+    en_US: How many ads to return (1 to 30).
+    zh_Hans: 返回的广告数量（1 到 30）。
+  llm_description: Maximum number of ads to return, 1 to 30. Default 10.
+  form: llm
+  default: 10
+  min: 1
+  max: 30
+- name: sort
+  type: select
+  required: false
+  label:
+    en_US: Sort
+    zh_Hans: 排序
+  human_description:
+    en_US: Longest running surfaces proven ads first.
+    zh_Hans: 按投放时长排序可优先看到已验证有效的广告。
+  llm_description: longest_running (default, proven ads first), newest, or impressions.
+  form: llm
+  default: longest_running
+  options:
+  - value: longest_running
+    label:
+      en_US: Longest running
+      zh_Hans: 投放最久
+  - value: newest
+    label:
+      en_US: Newest
+      zh_Hans: 最新
+  - value: impressions
+    label:
+      en_US: Most impressions
+      zh_Hans: 展示最多
+extra:
+  python:
+    source: tools/pull_competitor_ads.py

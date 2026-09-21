@@ -1,0 +1,111 @@
+identity:
+  name: generate_video
+  author: hermoso-ai
+  label:
+    en_US: Generate Video
+    zh_Hans: 生成视频
+description:
+  human:
+    en_US: 'Start a video render from a prompt. Long-running: returns the video URL if it finishes quickly, otherwise a job
+      id to poll with Get Job. Spends credits.'
+    zh_Hans: 根据提示词开始渲染视频。耗时较长：若很快完成则返回视频链接，否则返回任务 ID，请用“查询任务”轮询。消耗额度。
+  llm: 'Starts ONE video render from a prompt. LONG-RUNNING: renders take 1 to 3 minutes. This tool waits up to about 45 seconds;
+    if the clip is ready it returns video_url, otherwise it returns status=rendering with a job_id. When you get a job_id,
+    call get_job with it until status is done or error. NEVER call generate_video again for the same request while a job is
+    rendering: that spends credits twice. Spends Hermoso credits.'
+parameters:
+- name: prompt
+  type: string
+  required: true
+  label:
+    en_US: Prompt
+    zh_Hans: 提示词
+  human_description:
+    en_US: 'Describe the clip: subject, action, camera and mood.'
+    zh_Hans: 描述视频片段：主体、动作、镜头和氛围。
+  llm_description: 'The video prompt or shot description: subject, action, camera movement, setting and mood.'
+  form: llm
+- name: duration_seconds
+  type: number
+  required: false
+  label:
+    en_US: Duration (seconds)
+    zh_Hans: 时长（秒）
+  human_description:
+    en_US: Length of the clip. Leave empty for the model default.
+    zh_Hans: 视频时长，留空使用模型默认值。
+  llm_description: Clip length in seconds. Omit for the model's default. Not every length is available on every model; an
+    unsupported length is refused with the lengths that are available.
+  form: llm
+  min: 1
+  max: 60
+- name: aspect_ratio
+  type: select
+  required: false
+  label:
+    en_US: Aspect ratio
+    zh_Hans: 宽高比
+  human_description:
+    en_US: Shape of the video. Default 9:16.
+    zh_Hans: 视频比例，默认 9:16。
+  llm_description: Aspect ratio. Default 9:16 (vertical). Use 16:9 for YouTube, 1:1 for feeds.
+  form: llm
+  default: '9:16'
+  options:
+  - value: '9:16'
+    label:
+      en_US: '9:16'
+      zh_Hans: '9:16'
+  - value: '16:9'
+    label:
+      en_US: '16:9'
+      zh_Hans: '16:9'
+  - value: '1:1'
+    label:
+      en_US: '1:1'
+      zh_Hans: '1:1'
+  - value: '4:3'
+    label:
+      en_US: '4:3'
+      zh_Hans: '4:3'
+  - value: '3:4'
+    label:
+      en_US: '3:4'
+      zh_Hans: '3:4'
+- name: reference_image
+  type: string
+  required: false
+  label:
+    en_US: First frame image URL
+    zh_Hans: 首帧图片链接
+  human_description:
+    en_US: Optional public image URL to start the clip from.
+    zh_Hans: 可选：作为视频首帧的公开图片链接。
+  llm_description: Optional public https image URL that anchors the first frame, for example a product photo.
+  form: llm
+- name: audio
+  type: boolean
+  required: false
+  label:
+    en_US: Audio
+    zh_Hans: 音频
+  human_description:
+    en_US: Render with sound. Turn off for a silent clip.
+    zh_Hans: 渲染带声音的视频，关闭则为无声视频。
+  llm_description: true (default) renders with sound. false renders a silent clip.
+  form: form
+  default: true
+- name: model
+  type: string
+  required: false
+  label:
+    en_US: Model
+    zh_Hans: 模型
+  human_description:
+    en_US: Optional video model id. Leave empty for the recommended default.
+    zh_Hans: 可选：视频模型 ID，留空使用推荐默认值。
+  llm_description: Optional video model id. Omit it unless the user named a model.
+  form: form
+extra:
+  python:
+    source: tools/generate_video.py
