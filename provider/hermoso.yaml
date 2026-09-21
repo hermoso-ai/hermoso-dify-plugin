@@ -25,8 +25,8 @@ credentials_for_provider:
       en_US: hmk_...
       zh_Hans: hmk_...
     help:
-      en_US: Create a key in the Hermoso app under Settings, Agents & API.
-      zh_Hans: 在 Hermoso 应用的 Settings, Agents & API 中创建密钥。
+      en_US: Create a key in the Hermoso app under MCP & CLI.
+      zh_Hans: 在 Hermoso 应用的 MCP & CLI 中创建密钥。
     url: https://app.hermoso.ai/
 tools:
   - tools/hermoso_credits.yaml
