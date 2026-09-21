@@ -1,0 +1,14 @@
+[project]
+name = "hermoso-dify-plugin"
+version = "0.0.1"
+description = "Hermoso tool plugin for Dify"
+requires-python = ">=3.12"
+dependencies = [
+    "dify-plugin==0.9.1",
+    "requests==2.34.2",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+markers = ["live: calls the real Hermoso API with a read-only key (needs HERMOSO_API_KEY)"]

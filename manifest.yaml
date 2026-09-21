@@ -1,0 +1,42 @@
+version: 0.0.1
+type: plugin
+author: hermoso-ai
+name: hermoso
+label:
+  en_US: Hermoso
+  zh_Hans: Hermoso
+description:
+  en_US: Research the ads winning in your market, generate on-brand image and video ads, and schedule posts to your social channels.
+  zh_Hans: 调研市场上表现出色的广告，生成符合品牌风格的图片和视频广告，并将帖子定时发布到你的社交渠道。
+icon: icon.svg
+icon_dark: icon-dark.svg
+repo: https://github.com/hermoso-ai/hermoso-dify-plugin
+contact: hello@hermoso.ai
+tags:
+  - business
+  - social
+  - image
+  - videos
+  - search
+resource:
+  memory: 268435456
+  permission: {}
+network:
+  domains:
+    - app.hermoso.ai
+plugins:
+  tools:
+    - provider/hermoso.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+  minimum_dify_version: 1.0.0
+created_at: 2026-09-21T02:40:13Z
+privacy: PRIVACY.md
+verified: false
