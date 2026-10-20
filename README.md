@@ -2,7 +2,7 @@
 
 Give a Dify agent or workflow a marketing toolkit: research the ads that are winning in a market, generate on-brand image and video ads, and schedule posts to your own social channels.
 
-[Hermoso](https://hermoso.ai) is a marketing platform with a REST API. This plugin is a thin client for that API. It talks to one host, `app.hermoso.ai`, over HTTPS.
+[Hermoso](https://hermoso.ai) is an AI marketing agent and AI ad generator with a REST API. No markup on models. This plugin is a thin client for that API. It talks to one host, `app.hermoso.ai`, over HTTPS.
 
 - Source repository: https://github.com/hermoso-ai/hermoso-dify-plugin
 - API reference: https://hermoso.ai/docs/api
